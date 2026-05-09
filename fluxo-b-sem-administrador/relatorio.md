@@ -27,75 +27,80 @@
 
 ## Atividade 1 — Primeira captura (`http://example.com`)
 
-**Captura de tela:** `evidencias/atv1_sessao.png`
+**Captura de tela:** <img width="533" height="893" alt="image" src="https://github.com/user-attachments/assets/635ec154-dff8-45d5-a278-024f1c3ea5ef" />
+
 
 **Request-line enviada:**
 
 ```http
-[colar aqui a linha inicial do request, ex: GET / HTTP/1.1]
+[GET http://example.com/ HTTP/1.1]
 ```
 
 **Status-line recebida:**
 
 ```http
-[colar aqui, ex: HTTP/1.1 200 OK]
+[HTTP/1.1 304 Not Modified]
 ```
 
 ### Pergunta 1.1
 > Quantos cabeçalhos o navegador enviou no request? Liste-os.
 
 **Resposta:**
-[número total]
+[4]
 
 Cabeçalhos:
-- [cabeçalho 1]
-- [cabeçalho 2]
-- ...
+- [Cache]
+- [Client]
+- [Security]
+- [Transport]
 
 ### Pergunta 1.2
 > Qual foi o `Content-Length` da resposta? Se ele não apareceu, registre `Transfer-Encoding`, versão do protocolo ou outro indício observado. O corpo retornado é HTML, texto puro, JSON ou binário? Como você descobriu?
 
-**Resposta:** [...]
+**Resposta:** [HTTP/1.1 304 Not Modified. Não aparece Content Type em lugar nenhum.]
 
 ---
 
 ## Atividade 2 — Anatomia de um GET (`http://httpbin.org/get?...`)
 
-**Captura de tela:** `evidencias/atv2_raw.png`
+**Captura de tela:** <img width="427" height="344" alt="image" src="https://github.com/user-attachments/assets/d67c4a72-34b8-4d81-b047-fbe2cff636bc" />
+
 
 **Request-line completa:**
 
 ```http
-[colar aqui]
+[GET http://httpbin.org/get?aluno=miguel_macedo&curso=redes HTTP/1.1]
 ```
 
 **Cabeçalhos-chave capturados:**
 
 | Cabeçalho    | Valor                    |
 |--------------|--------------------------|
-| `Host`       | [...]                    |
-| `User-Agent` | [...]                    |
-| `Accept`     | [...]                    |
+| `Host`       | [httpbin.org]                    |
+| `User-Agent` | [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36
+]                    |
+| `Accept`     | [text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+]                    |
 
 **Campos do JSON de resposta:**
 
 ```json
 {
-  "args":    [colar valor],
-  "headers": [colar valor resumido],
-  "origin":  [colar valor]
+  "args":    [aluno=miguel_macedo curso=redes],
+  "headers": [Accept=text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7 Accept-Encoding=gzip, deflate Accept-Language=pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7 Host=httpbin.org Upgrade-Insecure-Requests=1 User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36 X-Amzn-Trace-Id=Root=1-69ff353d-55c124cc4d3d594d2ffa9364],
+  "origin":  [187.58.19.47]
 }
 ```
 
 ### Pergunta 2.1
 > O valor do campo `origin` corresponde a qual elemento da rede? Por que normalmente não é o IP local?
 
-**Resposta:** [...]
+**Resposta:** [O servidor web.]
 
 ### Pergunta 2.2
 > Compare o `User-Agent` enviado com o que aparece no JSON da resposta. Coincidem?
 
-**Resposta:** [...]
+**Resposta:** [Sim]
 
 ### Pergunta 2.3
 > Em `http://httpbin.org/headers`, liste até três cabeçalhos que o servidor vê mas **não aparecem** no Raw do request. De onde vêm? Se não encontrar três, explique por que o resultado pode variar.
@@ -104,170 +109,202 @@ Cabeçalhos:
 
 | Cabeçalho visto pelo servidor | Origem provável | Observação |
 |-------------------------------|-----------------|------------|
-| [...]                         | [...]           | [...]      |
-| [...]                         | [...]           | [...]      |
-| [...]                         | [...]           | [...]      |
+| [Miscellanous]                         | [Infraestrutura / Proxy]           | [Agrupa headers extras]      |
+| [Entity]                         | [Cliente]           | [Descreve o conteúdo enviado]      |
+| [Cache]                         | [Navegador / Servidor]           | [Controla a validade dos dados]      |
 
 ---
 
 ## Atividade 3 — POST e envio de formulário (`http://httpbin.org/forms/post` → `/post`)
 
-**Captura de tela:** `evidencias/atv3_post_raw.png`
+**Captura de tela:** <img width="314" height="357" alt="image" src="https://github.com/user-attachments/assets/d4c9efc2-d978-4407-9ab8-789ebb7d542e" />
+
 
 **Request-line do POST:**
 
 ```http
-[colar aqui]
+[POST http://httpbin.org/post HTTP/1.1]
 ```
 
 **Cabeçalhos do request:**
 
 | Cabeçalho        | Valor |
 |------------------|-------|
-| `Content-Type`   | [...] |
-| `Content-Length` | [...] |
+| `Content-Type`   | [application/x-www-form-urlencoded] |
+| `Content-Length` | [191] |
 
 **Corpo completo do request:**
 
 ```
-[colar aqui o body enviado]
+[custname=Isabella&custtel=13+92485289549&custemail=isabellacrazy%40gmail.com&size=medium&topping=bacon&topping=cheese&topping=onion&topping=mushroom&delivery=20%3A15&comments=do+lado+do+posto]
 ```
 
 **Trecho do JSON de resposta (campo `form`):**
 
 ```json
 "form": {
-  [colar aqui]
+  "comments": "do lado do posto", 
+    "custemail": "isabellacrazy@gmail.com", 
+    "custname": "Isabella", 
+    "custtel": "13 92485289549", 
+    "delivery": "20:15", 
+    "size": "medium", 
+    "topping": [
+      "bacon", 
+      "cheese", 
+      "onion", 
+      "mushroom"
+
 }
 ```
 
 ### Pergunta 3.1
 > Qual o formato do corpo? Como esse formato codifica caracteres especiais (espaço, acentos)?
 
-**Resposta:** [...]
+**Resposta:** [application/x-www-form-urlencoded]
 
 ### Pergunta 3.2
 > Comparando **Request → WebForms** e **Request → Raw**: qual das duas corresponde literalmente aos bytes enviados no socket TCP?
 
-**Resposta:** [...]
+**Resposta:** [Raw]
 
 ### Pergunta 3.3 — Composer
 > Envie manualmente via Composer um `POST` para `http://httpbin.org/post` com JSON. Registre a resposta. Qual campo do JSON confirma que o servidor interpretou o JSON?
 
-**Captura de tela:** `evidencias/atv3_composer.png`
+**Captura de tela:** <img width="578" height="383" alt="image" src="https://github.com/user-attachments/assets/b0c71c23-b831-44ce-b174-d26dd05977f6" />
+
 
 **Response JSON (trecho relevante):**
 
 ```json
 {
-  [colar aqui]
+  ["form": {
+    "comments": "do lado do posto", 
+    "custemail": "isabellacrazy@gmail.com", 
+    "custname": "Isabella", 
+    "custtel": "13 92485289549", 
+    "delivery": "20:15", 
+    "size": "medium", 
+    "topping": [
+      "bacon", 
+      "cheese", 
+      "onion", 
+      "mushroom"
+    ]
+  }, 
+  "headers": {]
 }
 ```
 
-**Resposta:** [...]
+**Resposta:** [O form com os itens enviados]
 
 ---
 
 ## Atividade 4 — Catálogo de status codes (`http://httpbin.org/...`)
 
-**Captura de tela (lista do Fiddler com as 7 sessões):** `evidencias/atv4_lista.png`
+**Captura de tela (lista do Fiddler com as 7 sessões):** <img width="445" height="216" alt="image" src="https://github.com/user-attachments/assets/d224c90f-0e51-4fc8-a908-70fc5abb6fdd" />
+
 
 | # | Método | URL | Status-line | `Content-Length` / `Transfer-Encoding` | Body presente? |
 |---|--------|-----|-------------|-----------------------------------------|----------------|
-| 1 | GET    | `http://httpbin.org/status/200` | [...] | [...] | [sim/não] |
-| 2 | GET    | `http://httpbin.org/redirect-to?status_code=301&url=/get` | [...] | [...] | [sim/não] |
-| 3 | GET    | `http://httpbin.org/status/404` | [...] | [...] | [sim/não] |
-| 4 | GET    | `http://httpbin.org/status/418` | [...] | [...] | [sim/não] |
-| 5 | GET    | `http://httpbin.org/status/500` | [...] | [...] | [sim/não] |
-| 6 | GET    | `http://httpbin.org/status/503` | [...] | [...] | [sim/não] |
-| 7 | GET    | `http://httpbin.org/cache` com `If-Modified-Since` | [...] | [...] | [sim/não] |
+| 1 | GET    | `http://httpbin.org/status/200` | [628] | [gzip, deflate] | [não] |
+| 2 | GET    | `http://httpbin.org/redirect-to?status_code=301&url=/get` | [0] | [gzip, deflate] | [não] |
+| 3 | GET    | `http://httpbin.org/status/404` | [0] | [gzip, deflate] | [não] |
+| 4 | GET    | `http://httpbin.org/status/418` | [135] | [gzip, deflate] | [sim] |
+| 5 | GET    | `http://httpbin.org/status/500` | [0] | [gzip, deflate] | [não] |
+| 6 | GET    | `http://httpbin.org/status/503` | [0] | [gzip, deflate] | [não] |
+| 7 | GET    | `http://httpbin.org/cache` com `If-Modified-Since` | [630] | [gzip, deflate] | [não] |
 
 ### Pergunta 4.1
 > Em qual dos status o corpo está ausente/tamanho zero? Isso é obrigatório pela especificação ou depende do servidor?
 
-**Resposta:** [...]
+**Resposta:** [Todos, obrigatório pela especificação]
 
 ### Pergunta 4.2
 > No `301`, qual cabeçalho da resposta informa para onde ir? O que aconteceria se estivesse ausente?
 
-**Resposta:** [...]
+**Resposta:** [Location, Se ele estivesse ausente, o navegador receberia a ordem de "mudar de endereço", mas não saberia para onde ir, resultando em uma página de erro ou em uma tela em branco.]
 
 ### Pergunta 4.3
 > Diferença semântica entre `200`, `304` e `404` do ponto de vista do cache do navegador.
 
-**Resposta:** [...]
+**Resposta:** [200 (OK): O servidor entrega o arquivo novo e completo. O navegador baixa tudo e salva no cache para usar no futuro. 304 (Not Modified): O servidor diz: "O arquivo que você já tem é igual ao meu". O navegador não baixa nada e usa a versão que já está no cache, economizando tempo e internet. 404 (Not Found): O arquivo não existe. O navegador não tem o que salvar no cache e, se tivesse uma versão antiga lá, ela se torna inválida.]
 
 ---
 
 ## Atividade 5 — Identificação de cabeçalhos (`http://httpbin.org/response-headers?...` + `/gzip`)
 
-**Captura de tela (Inspectors → Headers):** `evidencias/atv5_headers.png`
+**Captura de tela (Inspectors → Headers):** <img width="541" height="546" alt="image" src="https://github.com/user-attachments/assets/41b27adb-3122-41c0-8eec-fa4616bead79" />
+
 
 | Cabeçalho                    | Req/Resp | Valor capturado | Função em uma frase |
 |------------------------------|----------|------------------|----------------------|
-| `Host`                       | [...]    | [...]            | [...]                |
-| `User-Agent`                 | [...]    | [...]            | [...]                |
-| `Accept`                     | [...]    | [...]            | [...]                |
-| `Accept-Encoding`            | [...]    | [...]            | [...]                |
-| `Cookie`                     | [...]    | [...]            | [...]                |
-| `Server`                     | [...]    | [...]            | [...]                |
-| `Content-Type`               | [...]    | [...]            | [...]                |
-| `Content-Encoding`           | [...]    | [...]            | [...]                |
-| `Set-Cookie`                 | [...]    | [...]            | [...]                |
-| `Cache-Control`              | [...]    | [...]            | [...]                |
+| `Host`                       | [Req]    | [httpbin.org]            | [...]                |
+| `User-Agent`                 | [Req]    | [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36]            | [...]                |
+| `Accept`                     | [Req]    | [text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7]            | [...]                |
+| `Accept-Encoding`            | [Req]    | [gzip, deflate]            | [...]                |
+| `Cookie`                     | [Req]    | [teste=1]            | [...]                |
+| `Server`                     | [Resp]    | [gunicorn/19.9.0]            | [...]                |
+| `Content-Type`               | [Resp]    | [application/json]            | [...]                |
+| `Content-Encoding`           | [Nenhum]    | [Nenhum]            | [...]                |
+| `Set-Cookie`                 | [Resp]    | [teste=1]            | [...]                |
+| `Cache-Control`              | [Resp]    | [max-age=3600]            | [...]                |
 | `Strict-Transport-Security`  | Não esperado em HTTP — ver Pergunta 5.3 | — | — |
 
 ### Pergunta 5.1
 > `Content-Encoding: gzip`/`br` apareceu? Compare `Content-Length`, quando presente, com o conteúdo visível. O que explica a diferença?
 
-**Resposta:** [...]
+**Resposta:** [Não apareceu para mim. Content-Length: 133. O Content-Length reflete o tamanho do corpo da mensagem compactado (como ele viajou pela rede). O conteúdo que você vê nos Inspectors do Fiddler, após clicar para decodificar, é o texto descompactado. Por isso, o conteúdo visível parece ser muito maior do que o número indicado no cabeçalho.]
 
 ### Pergunta 5.2
 > Cliente envia `Accept: application/json` mas o recurso só existe em `text/html`. Qual status code esperar?
 
-**Resposta:** [...]
+**Resposta:** [O status code esperado é o 406 Not Acceptable.]
 
 ### Pergunta 5.3
 > `Strict-Transport-Security` apareceu nas respostas HTTP? Por que esse cabeçalho está ausente neste fluxo? (Consulte a RFC 6797.) Qual é seu papel contra downgrades para HTTP puro?
 
-**Resposta:** [...]
+**Resposta:** [O cabeçalho Strict-Transport-Security (HSTS) só deve ser processado se a conexão for HTTPS.]
 
 ---
 
 ## Atividade 6 — HTTP vs HTTPS (análise sem decriptação)
 
-**Captura de tela HTTP (`neverssl.com`):** `evidencias/atv6_http.png`
-**Captura de tela HTTPS (`https://httpbin.org/get`, apenas CONNECT):** `evidencias/atv6_https.png`
+**Captura de tela HTTP (`neverssl.com`):<img width="536" height="854" alt="image" src="https://github.com/user-attachments/assets/9e0a4e5d-bfd2-480c-89a5-5a4aafd03f60" />
+
+**Captura de tela HTTPS (`https://httpbin.org/get`, apenas CONNECT):** <img width="535" height="811" alt="image" src="https://github.com/user-attachments/assets/d50a23ee-274d-4071-9907-ae7821fcf667" />
+
 
 ### Pergunta 6.1
 > Que método HTTP aparece na sessão do `https://httpbin.org/get`? O que ele faz e por que existe?
 
-**Resposta:** [...]
+**Resposta:** [Connect, Cria um túnel direto entre o seu computador e o servidor de destino, geralmente através de um servidor proxy.]
 
 ### Pergunta 6.2
 > Tabela comparativa dos campos visíveis ao Fiddler em cada caso:
 
 | Campo                          | Visível em HTTP? | Visível em HTTPS (sem decriptação)? |
 |--------------------------------|------------------|-------------------------------------|
-| Método                         | [...]            | [...]                               |
-| URL completa (path + query)    | [...]            | [...]                               |
-| Cabeçalhos de request          | [...]            | [...]                               |
-| Corpo de request               | [...]            | [...]                               |
-| Status code                    | [...]            | [...]                               |
-| Cabeçalhos de response         | [...]            | [...]                               |
-| Corpo de response              | [...]            | [...]                               |
-| Host (via SNI, no `CONNECT`)   | [...]            | [...]                               |
-| IP e porta de destino          | [...]            | [...]                               |
+| Método                         | [Sim]            | [Sim]                               |
+| URL completa (path + query)    | [Sim]            | [Nao]                               |
+| Cabeçalhos de request          | [Sim]            | [Nâo]                               |
+| Corpo de request               | [Nâo]            | [Nâo]                               |
+| Status code                    | [Sim]            | [Sim]                               |
+| Cabeçalhos de response         | [Sim]            | [Sim]                               |
+| Corpo de response              | [Sim]            | [Sim]                               |
+| Host (via SNI, no `CONNECT`)   | [Sim]            | [Sim]                               |
+| IP e porta de destino          | [Não]            | [Sim]                               |
 
 ### Pergunta 6.3 (teórica)
 > O que você **veria** no Fiddler se tivesse privilégio de administrador e pudesse habilitar *Decrypt HTTPS traffic*? Indique telas/abas e justifique por que essa inspeção exige a instalação de um certificado raiz.
 
-**Resposta:** [...]
+**Resposta:** [Telas/Abas: Você conseguiria usar as abas JSON, XML, WebForms e TextView para ler o conteúdo das mensagens (corpo e cabeçalhos) que antes estavam escondidos.
+Justificativa do Certificado Raiz: A inspeção exige um certificado raiz porque o HTTPS foi feito para impedir que qualquer intermediário leia os dados. O Fiddler atua como um "homem no meio" (Man-in-the-Middle); ele cria um certificado falso para o site que você quer visitar. Sem o certificado raiz do Fiddler instalado e confiado no seu sistema, o navegador bloquearia a conexão por segurança, avisando que o certificado é inválido.]
 
 ### Pergunta 6.4
 > Por que a técnica de decriptação dos *debugging proxies* **não** funcionaria contra um usuário se um atacante a tentasse sem instalar o certificado?
 
-**Resposta:** [...]
+**Resposta:** [A técnica não funcionaria porque o navegador do usuário verificaria a Cadeia de Confiança.]
 
 ---
 
