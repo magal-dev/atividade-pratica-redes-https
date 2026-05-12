@@ -310,19 +310,20 @@ Justificativa do Certificado Raiz: A inspeção exige um certificado raiz porque
 
 ## Atividade 7 — Cookies e sessão (`http://httpbin.org/cookies/...`)
 
-**Captura de tela da sequência:** `evidencias/atv7_cookies.png`
+**Captura de tela da sequência:** <img width="1515" height="943" alt="image" src="https://github.com/user-attachments/assets/c1eb6484-74d2-49fa-ada5-dbb0e4eecfd5" />
+
 
 | # | URL | `Set-Cookie` recebido | `Cookie` enviado |
 |---|-----|-----------------------|-------------------|
-| 1 | `/cookies/set?...`       | [...] | [nenhum / ...] |
-| 2 | `/cookies` (1ª visita)   | [...] | [...]          |
-| 3 | `/cookies` (reload 1)    | [...] | [...]          |
-| 4 | `/cookies` (reload 2)    | [...] | [...]          |
+| 1 | `/cookies/set?...`       | [disciplina=redes; Path=/ e professor=claudio.; Path=/] | [...] |
+| 2 | `/cookies` (1ª visita)   | [...] | [disciplina=redes; professor=claudio.]          |
+| 3 | `/cookies` (reload 1)    | [...] | [disciplina=redes; professor=claudio.]          |
+| 4 | `/cookies` (reload 2)    | [...] | [disciplina=redes; professor=claudio.]          |
 
 ### Pergunta 7.1
 > `Set-Cookie` aparece uma vez ou em toda requisição? Justifique.
 
-**Resposta:** [...]
+**Resposta:** [O Set-Cookie apareceu apenas uma vez, na requisição /cookies/set?.... Nas requisições seguintes a /cookies, o servidor não reenviou Set-Cookie pois o cookie já estava armazenado no navegador.]
 
 ### Pergunta 7.2
 > Que atributos o `Set-Cookie` trouxe? Explique cada um presente. Para atributos não observados, registre `não observado`.
