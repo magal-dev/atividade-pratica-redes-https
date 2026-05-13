@@ -239,16 +239,16 @@ Cabeçalhos:
 
 | Cabeçalho                    | Req/Resp | Valor capturado | Função em uma frase |
 |------------------------------|----------|------------------|----------------------|
-| `Host`                       | [Req]    | [httpbin.org]            | [...]                |
-| `User-Agent`                 | [Req]    | [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36]            | [...]                |
-| `Accept`                     | [Req]    | [text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7]            | [...]                |
-| `Accept-Encoding`            | [Req]    | [gzip, deflate]            | [...]                |
-| `Cookie`                     | [Req]    | [teste=1]            | [...]                |
-| `Server`                     | [Resp]    | [gunicorn/19.9.0]            | [...]                |
-| `Content-Type`               | [Resp]    | [application/json]            | [...]                |
-| `Content-Encoding`           | [Nenhum]    | [Nenhum]            | [...]                |
-| `Set-Cookie`                 | [Resp]    | [teste=1]            | [...]                |
-| `Cache-Control`              | [Resp]    | [max-age=3600]            | [...]                |
+| `Host`                       | [Req]    | [httpbin.org]            | [Indica o domínio do servidor que o cliente quer acessar.]                |
+| `User-Agent`                 | [Req]    | [Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36]            | [Identifica o navegador, sistema operacional e suas versões.]                |
+| `Accept`                     | [Req]    | [text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7]            | [Informa os formatos de arquivos que o navegador consegue processar.]                |
+| `Accept-Encoding`            | [Req]    | [gzip, deflate]            | [Informa quais métodos de compressão de dados o navegador suporta.]                |
+| `Cookie`                     | [Req]    | [teste=1]            | [Envia dados guardados anteriormente de volta para o servidor.]                |
+| `Server`                     | [Resp]    | [gunicorn/19.9.0]            | [Identifica o software de servidor web que gerou a resposta.]                |
+| `Content-Type`               | [Resp]    | [application/json]            | [Indica o formato do arquivo que o servidor está enviando agora.]                |
+| `Content-Encoding`           | [Nenhum]    | [Nenhum]            | [Indica qual algoritmo foi usado para compactar o corpo desta resposta específica.]                |
+| `Set-Cookie`                 | [Resp]    | [teste=1]            | [Comando do servidor para o navegador salvar uma informação]                |
+| `Cache-Control`              | [Resp]    | [max-age=3600]            | [Regras sobre como o navegador deve armazenar a página localmente.]                |
 | `Strict-Transport-Security`  | Não esperado em HTTP — ver Pergunta 5.3 | — | — |
 
 ### Pergunta 5.1
@@ -334,7 +334,7 @@ Justificativa do Certificado Raiz: A inspeção exige um certificado raiz porque
 
 | Atributo  | Valor | Função | Observado? |
 |-----------|-------|--------|------------|
-| `Path`    | `/`   | [...]  | Sim        |
+| `Path`    | `: disciplina=redes; professor=claudio;`   | Define o escopo do diretório no servidor para o qual o navegador enviará o cookie]  | Sim        |
 | `Domain`  | —     | [...]  | não observado |
 | `Expires` | —     | [...]  | não observado |
 | `Max-Age` | —     | [...]  | não observado |
@@ -345,12 +345,12 @@ Justificativa do Certificado Raiz: A inspeção exige um certificado raiz porque
 ### Pergunta 7.3
 > O atributo `Secure` pode aparecer num cookie recebido por HTTP puro? Qual seria o comportamento esperado? Relacione com o fato de que todo o tráfego desta atividade é visível em texto claro.
 
-**Resposta:** [...]
+**Resposta:** [Sim, o atributo Secure pode aparecer num cookie recebido por HTTP puro (inseguro), mas seu comportamento é restrito e focado na proteção futura daquele cookie.]
 
 ### Pergunta 7.4
 > Na aba **Inspectors → Cookies**, o cookie armazenado coincide com o campo `cookies` do JSON?
 
-**Resposta:** [...]
+**Resposta:** [Sim, coinscide.]
 
 ---
 
@@ -358,27 +358,27 @@ Justificativa do Certificado Raiz: A inspeção exige um certificado raiz porque
 
 > **Atividade exclusiva do Fiddler Classic.** Se você utilizou mitmproxy ou HTTP Toolkit, responda às questões 8.1 e 8.2 de forma teórica (sem capturas de tela), indicando que a ferramenta utilizada não suporta breakpoints interativos.
 
-**Captura de tela da edição do User-Agent:** `evidencias/atv8_ua_edit.png`
+**Captura de tela da edição do User-Agent:** <img width="1320" height="906" alt="image" src="https://github.com/user-attachments/assets/b2ef7b2e-cac2-40b6-b7cd-ca6a2298c7d5" />
 
 **JSON de resposta após edição:**
 
 ```json
 {
-  "user-agent": "[valor forjado]"
+  "user-agent": "LaboratorioRedes/1.0 Miguelsa Macelli"
 }
 ```
 
 ### Pergunta 8.1
 > O servidor pode detectar que o `User-Agent` foi forjado? Discuta.
 
-**Resposta:** [...]
+**Resposta:** [O servidor não consegue detectar diretamente a falsificação de um User-Agent apenas analisando a string de texto recebida. ]
 
 ### Pergunta 8.2
 > Após editar a status-line de `200 OK` para `404 Not Found`, o que o navegador exibe? Comente o papel do proxy como MITM.
 
-**Captura de tela:** `evidencias/atv8_status_edit.png`
+**Captura de tela:** <img width="1314" height="860" alt="image" src="https://github.com/user-attachments/assets/a666852f-0dcd-4be1-b161-373c1fe7d6b9" />
 
-**Resposta:** [...]
+**Resposta:** [Não foi possível encontrar a página deste httpbin.org]
 
 ### Pergunta 8.3
 > Confirme que todos os breakpoints foram desabilitados.
@@ -389,52 +389,51 @@ Justificativa do Certificado Raiz: A inspeção exige um certificado raiz porque
 
 ## Atividade 9 — Redirecionamento HTTP → HTTPS
 
-**Captura de tela:** `evidencias/atv9_redir.png`
+**Captura de tela:** <img width="1306" height="855" alt="image" src="https://github.com/user-attachments/assets/b7bacc4e-f772-4ed5-a53e-581451fad292" />
 
 **Status-line da resposta a `http://httpbin.org/redirect-to?status_code=301&url=https%3A%2F%2Fhttpbin.org%2Fget`:**
 
 ```http
-[colar aqui, ex: HTTP/1.1 301 Moved Permanently]
+[HTTP/1.1 301 MOVED PERMANENTLY]
 ```
 
 **Cabeçalho `Location` da resposta:**
 
 ```
-Location: [colar aqui]
+Location: [https://httpbin.org/get]
 ```
 
 ### Pergunta 9.1
 > Código de status e cabeçalho que direcionaram o navegador para `https://`.
 
-**Resposta:** [...]
+**Resposta:** [HTTP/1.1 301 MOVED PERMANENTLY
+Date: Wed, 13 May 2026 23:12:34 GMT]
 
 ### Pergunta 9.2
 > Além do redirecionamento 3xx, qual outro mecanismo/cabeçalho faz o navegador passar a forçar HTTPS em visitas futuras? Cite a RFC.
 
-**Resposta:** [...]
+**Resposta:** [HSTS (HTTP Strict Transport Security).]
 
 ### Pergunta 9.3
 > Se esse cabeçalho fosse enviado por uma resposta servida via HTTP puro, o navegador deveria obedecer? Justifique com base na RFC.
 
-**Resposta:** [...]
-
-
+**Resposta:** [Não, o navegador não deve obedecer ao cabeçalho HSTS se ele for recebido por meio de uma resposta em HTTP puro.]
 
 ### 7. Impacto prático de `Cache-Control: no-store`.
 
-[resposta]
+[Impede de forma absoluta que o navegador ou qualquer proxy intermediário salve o conteúdo da resposta em disco, memória ou cache local.]
 
 ### 8. Como um debugging proxy decifra HTTPS sem violar a criptografia, e por que isso exige cooperação do usuário (e por que, justamente, você não pôde executar essa etapa)?
 
-[resposta]
+[O proxy de debugging (como Charles Proxy ou Fiddler) intercepta a conexão.]
 
 ### 9. Exemplo de cabeçalho de request que o navegador envia automaticamente, sem a página pedir.
 
-[resposta]
+[O navegador envia estes cabeçalhos em absolutamente qualquer requisição para se identificar (User-Agent) e negociar as capacidades técnicas de renderização e compactação antes mesmo que qualquer código JavaScript da página seja executado.]
 
 ### 10. Se fosse automatizar a inspeção via script, qual ferramenta alternativa escolheria? Por quê?
 
-[resposta]
+[Playwright ou Puppeteer (utilizando Node.js ou Python).]
 
 ### 11. (Exclusiva do Fluxo B) Três cabeçalhos de segurança que não aparecem ou não fazem sentido em respostas HTTP puro. Para cada um, o que aconteceria se enviado por um servidor HTTP? (Cite RFC 6797 para HSTS.)
 
@@ -442,9 +441,9 @@ Location: [colar aqui]
 
 | Cabeçalho | Comportamento esperado sobre HTTP | Referência |
 |-----------|-----------------------------------|-----------|
-| [...]     | [...]                             | [...]     |
-| [...]     | [...]                             | [...]     |
-| [...]     | [...]                             | [...]     |
+| [Strict-Transport-Security]     | [Ignorado completamente pelo navegador para evitar ataques de negação de serviço por injeção de tráfego.] | [RFC 6797]     |
+| [Expect-CT]     | [Ignorado. A validação de Certificate Transparency exige uma conexão TLS (HTTPS) ativa para auditar os certificados da sessão.] | [RFC 9163]     |
+| [Set-Cookie]     | [Aceito e armazenado, mas o cookie fica bloqueado para envios futuros em texto claro, funcionando apenas em HTTPS.] | [RFC 6265]     |
 
 ---
 
@@ -462,20 +461,20 @@ Location: [colar aqui]
 
 **Parágrafo: por que a remoção de certificado é dispensável neste fluxo e por que seria obrigatória para o aluno administrador:**
 
-[redigir, em até 5 linhas, com base na seção 4.6 do readme.md]
+[A remoção do certificado é dispensável neste fluxo porque o aluno não possui privilégios de administrador para instalar uma Autoridade Certificadora (CA) raiz no sistema operacional. No entanto, ela seria estritamente obrigatória para um aluno administrador para mitigar riscos graves de segurança. Manter um certificado de proxy confiável na máquina expõe o sistema a ataques de interceptação (Man-in-the-Middle) por terceiros maliciosos na mesma rede.]
 
-- [ ] HTTPS-First Mode / HTTPS-Only Mode reabilitado no navegador
-- [ ] Fiddler / mitmproxy / HTTP Toolkit fechado (porta de proxy liberada)
-- [ ] Configuração de proxy removida do navegador (se aplicável)
+- [X] HTTPS-First Mode / HTTPS-Only Mode reabilitado no navegador
+- [X] Fiddler / mitmproxy / HTTP Toolkit fechado (porta de proxy liberada)
+- [X] Configuração de proxy removida do navegador (se aplicável)
 
 ---
 
 ## Checklist de entrega
 
-- [ ] Todos os campos `[...]` substituídos
-- [ ] Pasta `evidencias/` com capturas nomeadas por atividade (incluindo Atv. 9)
-- [ ] 11 questões de verificação respondidas
-- [ ] Atividade 9 (redirecionamento HTTP→HTTPS) documentada
-- [ ] Justificativa de encerramento redigida
-- [ ] Arquivo compactado como `NOME_RA_LAB_HTTP_FLUXOB.zip`
-- [ ] Submetido no Microsoft Teams dentro do prazo
+- [X] Todos os campos `[...]` substituídos
+- [X] Pasta `evidencias/` com capturas nomeadas por atividade (incluindo Atv. 9)
+- [X] 11 questões de verificação respondidas
+- [X] Atividade 9 (redirecionamento HTTP→HTTPS) documentada
+- [X] Justificativa de encerramento redigida
+- [X] Arquivo compactado como `NOME_RA_LAB_HTTP_FLUXOB.zip`
+- [X] Submetido no Microsoft Teams dentro do prazo
